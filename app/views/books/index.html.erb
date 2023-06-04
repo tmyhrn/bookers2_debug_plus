@@ -16,6 +16,11 @@
        <%= f.submit '検索' %>
       <% end %>
      <% end %>
+
+     <% if user_signed_in? %>
+       <%= render 'tagsearches/tagsearch' %>
+     <% end %>
+
       <h2>Books</h2>
       <%= link_to '新しい順', books_path(latest: "true") %>
       |<%= link_to '古い順', books_path(old: "true") %>
