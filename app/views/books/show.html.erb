@@ -7,6 +7,19 @@
       <%= render 'form', book: @book_new %>
     </div>
     <div class='col-md-8 offset-md-1'>
+      <% if user_signed_in? %>
+        <%= form_with url: search_path, method: :get, local: true do |f| %>
+          <%= f.text_field :content %>
+          <%= f.select :model, options_for_select({ "User" => "user", "Book" => "book" }) %>
+          <%= f.select :method, options_for_select({ "完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial" }) %>
+          <%= f.submit '検索' %>
+        <% end %>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <%= render 'tagsearches/tagsearch' %>
+      <% end %>
+      
   		<h2>Book detail</h2>
   		<table class='table'>
   		  <tr>
