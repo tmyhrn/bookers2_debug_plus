@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :read_counts, dependent: :destroy
+  has_many :group_users, dependent: :destroy
   has_one_attached :profile_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
@@ -35,6 +36,12 @@ class User < ApplicationRecord
   
   def following?(user)
     followings.include?(user)
+  end
+  
+  def self.guest
+    find_or_create_by!(name: 'guestuser' ,email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
   end
   
   def self.search_for(content, method)
