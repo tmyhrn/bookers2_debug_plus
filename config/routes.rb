@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get 'followers' => 'relationships#followers', as: 'followers'
     get "search", to: "users#search"
   end
+  
   get '/search', to: 'searches#search'
   
   resources :messages, only: [:create]
